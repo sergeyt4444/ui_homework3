@@ -28,19 +28,34 @@ function acceptCommand(): void {
         case "1": {
             let key: string = readlineSync.question("Write new element's key: ");
             let value: string = readlineSync.question("Write new element's value: ");
-            tree.add(Number(key),Number(value));
+            if (isNaN(Number(key)) || isNaN(Number(value))) {
+                console.log("Invalid input");
+            }
+            else {
+                tree.add(Number(key),Number(value));
+            }
             acceptCommand();
             break;
         }
         case "2": {
             let key: string = readlineSync.question("Write element's key: ");
-            tree.remove(Number(key));
+            if (isNaN(Number(key))) {
+                console.log("Invalid input");
+            }
+            else {
+                tree.remove(Number(key));
+            }
             acceptCommand();
             break;
         }
         case "3": {
             let key: string = readlineSync.question("Write element's key: ");
-            console.log(tree.get(Number(key)));
+            if (!isNaN(Number(key))) {
+                console.log(tree.get(Number(key)));
+            }
+            else {
+                console.log("Invalid input");
+            }
             acceptCommand();
             break;
         }

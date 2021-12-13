@@ -86,6 +86,7 @@ export class Tree<V> {
             } else {
                 if (node.value == undefined) {
                     console.log("No such element");
+                    return undefined;
                 }
                 return node.value;
             }

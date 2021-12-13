@@ -10,4 +10,4 @@
 
 1. Перейти в корневой каталог проекта.
 1. Прописать npm install readline-sync и  npm install @types/readline-sync в консоли.
-1. Прописать node build/treeapp.js, проект запустится, и в консоли появится подсказка.
+1. Прописать node build/treeapp.js, проект запустится, в консоли появится подсказка.

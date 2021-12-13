@@ -1,6 +1,6 @@
-export class Tree<K,V> {
+export class Tree<V> {
     public size: number;
-    public root: TreeNode<K,V> | null;
+    public root: TreeNode<V> | null;
 
     constructor() {
         this.size = 0;
@@ -11,7 +11,7 @@ export class Tree<K,V> {
         console.log(this.simplePrintNode(this.root));
     }
 
-    private simplePrintNode(node: TreeNode<K,V> | null) : string {
+    private simplePrintNode(node: TreeNode<V> | null) : string {
         if (node != null) {
             // this.simplePrintNode(node.left);
             // console.log(node.value);
@@ -31,9 +31,9 @@ export class Tree<K,V> {
 
     }
 
-    public add(key: K, value: V) : void {
+    public add(key: number, value: V) : void {
         if (this.root == null) {
-            this.root = new TreeNode<K,V>(key, value, null, null);
+            this.root = new TreeNode<V>(key, value, null, null);
             this.size++;
         }
         else {
@@ -41,17 +41,15 @@ export class Tree<K,V> {
         }
     }
 
-    private addNode(key: K, value: V, node: TreeNode<K, V> | null) : TreeNode<K,V> {
-        if (node == null) {
-            return new TreeNode<K, V>(key, value, null,null);
+    private addNode(key: number, value: V, node: TreeNode<V> | null) : TreeNode<V> {
+        if (node == null || node.key === undefined) {
             this.size++;
+            return new TreeNode<V>(key, value, null,null);
         }
-        // @ts-ignore
         if (key < node.key) {
             node.left = this.addNode(key, value, node.left);
         }
         else {
-            // @ts-ignore
             if (key > node.key) {
                 node.right = this.addNode(key, value, node.right);
             }
@@ -65,7 +63,7 @@ export class Tree<K,V> {
         return node;
     }
 
-    public get(key: K): V | undefined
+    public get(key: number): V | undefined
     {
         if (this.root == null) {
             console.log("No such element");
@@ -75,16 +73,14 @@ export class Tree<K,V> {
         }
     }
 
-    private getNode(key: K, node: TreeNode<K, V> | null): V | undefined{
-        if (node == null) {
+    private getNode(key: number, node: TreeNode<V> | null): V | undefined{
+        if (node == null || node.key === undefined) {
             console.log("No such element");
             return undefined;
         }
-        // @ts-ignore
         if (key < node.key) {
             return this.getNode(key, node.left);
         } else {
-            // @ts-ignore
             if (key > node.key) {
                 return this.getNode(key, node.right);
             } else {
@@ -96,12 +92,12 @@ export class Tree<K,V> {
         }
     }
 
-    public remove(key: K): void {
+    public remove(key: number): void {
         this.root = this.removeNode(key, this.root);
     }
 
-    private removeNode(key: K | undefined, node: TreeNode<K, V> | null): TreeNode<K, V> | null {
-        if (node == null) {
+    private removeNode(key: number | undefined, node: TreeNode<V> | null): TreeNode<V> | null {
+        if (node == null || key === undefined || node.key === undefined) {
             return null;
         }
         if (node.key == key) {
@@ -124,7 +120,7 @@ export class Tree<K,V> {
                         node.value = undefined;
                         return node.left;
                     } else {
-                        let closestLeaf: TreeNode<K, V>;
+                        let closestLeaf: TreeNode<V>;
                         closestLeaf = this.findClosestLeaf(node.right);
                         node.value = closestLeaf.value;
                         node.key = closestLeaf.key;
@@ -135,7 +131,6 @@ export class Tree<K,V> {
             }
         }
         else {
-            // @ts-ignore
             if (node.key > key) {
                 node.left = this.removeNode(key, node.left);
                 return node;
@@ -147,13 +142,13 @@ export class Tree<K,V> {
         }
     }
 
-    private findClosestLeaf(node: TreeNode<K, V>): TreeNode<K, V> {
+    private findClosestLeaf(node: TreeNode<V>): TreeNode<V> {
         return node.left == null ? node : this.findClosestLeaf(node.left);
     }
 }
 
-class TreeNode<K,V> {
-    constructor(public key: K|undefined, public value: V|undefined, public left: TreeNode<K, V> | null, public right: TreeNode<K, V> | null) {}
+class TreeNode<V> {
+    constructor(public key: number|undefined, public value: V|undefined, public left: TreeNode<V> | null, public right: TreeNode<V> | null) {}
 }
 
 

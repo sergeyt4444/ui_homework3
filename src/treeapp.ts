@@ -2,8 +2,8 @@ import { Tree } from "./tree.js";
 import * as readlineSync from "readline-sync"
 
 
-let tree: Tree<number, number>;
-tree = new Tree<number, number>();
+let tree: Tree<number>;
+tree = new Tree<number>();
 helpMessage();
 acceptCommand();
 
